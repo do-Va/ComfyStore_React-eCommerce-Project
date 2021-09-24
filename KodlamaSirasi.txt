@@ -1,2 +1,0 @@
-- 1 - App.js içerisine Route'larımız eklendi.
-- 2 - Navbar.js componentin içerisine gerekli kodları girdik.
