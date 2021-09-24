@@ -1,16 +1,46 @@
-import React from 'react'
-import logo from '../assets/logo.svg'
-import { Link } from 'react-router-dom'
-import { useProductsContext } from '../context/products_context'
-import { FaTimes } from 'react-icons/fa'
-import { links } from '../utils/constants'
-import styled from 'styled-components'
-import CartButtons from './CartButtons'
-import { useUserContext } from '../context/user_context'
+import React from 'react';
+import logo from '../assets/logo.svg';
+import { Link } from 'react-router-dom';
+import { useProductsContext } from '../context/products_context';
+import { FaTimes } from 'react-icons/fa';
+import { links } from '../utils/constants';
+import styled from 'styled-components';
+import CartButtons from './CartButtons';
+import { useUserContext } from '../context/user_context';
 
 const Sidebar = () => {
-  return <h4>sidebar</h4>
-}
+  const isOpen = false;
+
+  return (
+    <SidebarContainer>
+      <aside className={isOpen ? 'sidebar show-sidebar' : 'sidebar'}>
+        <div className="sidebar-header">
+          <img src={logo} className="logo" alt="comfy sloth" />
+
+          <button className="close-btn" type="button">
+            <FaTimes />
+          </button>
+        </div>
+
+        <ul className="links">
+          {links.map(({ id, text, url }) => {
+            return (
+              <li key={id}>
+                <Link to={url}>{text}</Link>
+              </li>
+            );
+          })}
+
+          <li>
+            <Link to="/checkout">checkout</Link>
+          </li>
+        </ul>
+
+        <CartButtons />
+      </aside>
+    </SidebarContainer>
+  );
+};
 
 const SidebarContainer = styled.div`
   text-align: center;
@@ -20,6 +50,7 @@ const SidebarContainer = styled.div`
     align-items: center;
     padding: 1rem 1.5rem;
   }
+
   .close-btn {
     font-size: 2rem;
     background: transparent;
@@ -30,16 +61,20 @@ const SidebarContainer = styled.div`
     color: var(--clr-red-dark);
     margin-top: 0.2rem;
   }
+
   .close-btn:hover {
     color: var(--clr-red-light);
   }
+
   .logo {
     justify-self: center;
     height: 45px;
   }
+
   .links {
     margin-bottom: 2rem;
   }
+
   .links a {
     display: block;
     text-align: left;
@@ -69,18 +104,21 @@ const SidebarContainer = styled.div`
     transform: translate(-100%);
     z-index: -1;
   }
+
   .show-sidebar {
     transform: translate(0);
     z-index: 999;
   }
+
   .cart-btn-wrapper {
     margin: 2rem auto;
   }
+
   @media screen and (min-width: 992px) {
     .sidebar {
       display: none;
     }
   }
-`
+`;
 
-export default Sidebar
+export default Sidebar;

@@ -51,6 +51,7 @@ const NavContainer = styled.nav`
     margin: 0 auto;
     max-width: var(--max-width);
   }
+
   .nav-header {
     display: flex;
     align-items: center;
@@ -60,6 +61,7 @@ const NavContainer = styled.nav`
       margin-left: -15px;
     }
   }
+
   .nav-toggle {
     background: transparent;
     border: transparent;
@@ -69,21 +71,26 @@ const NavContainer = styled.nav`
       font-size: 2rem;
     }
   }
+
   .nav-links {
     display: none;
   }
+
   .cart-btn-wrapper {
     display: none;
   }
+
   @media (min-width: 992px) {
     .nav-toggle {
       display: none;
     }
+
     .nav-center {
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
     }
+
     .nav-links {
       display: flex;
       justify-content: center;
@@ -101,6 +108,7 @@ const NavContainer = styled.nav`
         }
       }
     }
+
     .cart-btn-wrapper {
       display: grid;
     }

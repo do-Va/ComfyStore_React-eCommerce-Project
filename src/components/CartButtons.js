@@ -44,6 +44,7 @@ const Wrapper = styled.div`
 
     align-items: center;
   }
+
   .cart-container {
     display: flex;
     align-items: center;
@@ -53,6 +54,7 @@ const Wrapper = styled.div`
       margin-left: 5px;
     }
   }
+
   .cart-value {
     position: absolute;
     top: -10px;
@@ -68,6 +70,7 @@ const Wrapper = styled.div`
     color: var(--clr-white);
     padding: 12px;
   }
+
   .auth-btn {
     display: flex;
     align-items: center;
