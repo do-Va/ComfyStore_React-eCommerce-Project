@@ -15,7 +15,6 @@ import {
 
 function App() {
   return (
-    /* KodlamaSirasi - 1 - Başlangıç */
     <Router>
       <Navbar />
       <Sidebar />
@@ -42,7 +41,6 @@ function App() {
       </Switch>
       <Footer />
     </Router>
-    /* KodlamaSirasi - 1 - Bitiş */
   );
 }
 

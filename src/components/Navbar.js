@@ -11,15 +11,16 @@ import { links } from '../utils/constants';
 import logo from '../assets/logo.svg';
 
 const Nav = () => {
+  const { openSidebar } = useProductsContext();
+
   return (
-    /* KodlamaSirasi - 2 - Başlangıç */
     <NavContainer>
       <div className="nav-center">
         <div className="nav-header">
           <Link to="/">
             <img src={logo} alt="comfy sloth" />
           </Link>
-          <button type="button" className="nav-toggle">
+          <button type="button" className="nav-toggle" onClick={openSidebar}>
             <FaBars />
           </button>
         </div>
@@ -36,7 +37,6 @@ const Nav = () => {
         <CartButtons />
       </div>
     </NavContainer>
-    /* KodlamaSirasi - 2 - Bitiş */
   );
 };
 
