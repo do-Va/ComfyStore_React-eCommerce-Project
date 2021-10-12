@@ -14,10 +14,14 @@ const filter_reducer = (state, action) => {
   switch (type) {
     /* ---- START ---- */
     case LOAD_PRODUCTS:
+      let maxPrice = action.payload.map(p => p.price);
+      maxPrice = Math.max(...maxPrice);
+
       return {
         ...state,
         all_products: [...payload],
         filtered_products: [...payload],
+        filters: { ...state.filters, max_price: maxPrice, price: maxPrice },
       };
     /* ---- ------- END ------- ---- */
 
