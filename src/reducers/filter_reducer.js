@@ -10,12 +10,13 @@ import {
 } from '../actions';
 
 const filter_reducer = (state, action) => {
-  switch (action.type) {
+  const { type, payload, name, value } = action;
+  switch (type) {
     case LOAD_PRODUCTS:
       return {
         ...state,
-        all_products: [...action.payload],
-        filtered_products: [...action.payload],
+        all_products: [...payload],
+        filtered_products: [...payload],
       };
 
     case SET_GRIDVIEW:
@@ -28,6 +29,12 @@ const filter_reducer = (state, action) => {
       return {
         ...state,
         grid_view: false,
+      };
+
+    case UPDATE_SORT:
+      return {
+        ...state,
+        [payload.name]: payload.value,
       };
 
     default:
