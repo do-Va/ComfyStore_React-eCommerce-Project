@@ -70,6 +70,18 @@ const filter_reducer = (state, action) => {
     /* ---- ------- END ------- ---- */
 
     /* ---- START ---- */
+    case UPDATE_FILTERS:
+      const { name, value } = action.payload;
+      return { ...state, filters: { ...state.filters, [name]: value } };
+    /* ---- ------- END ------- ---- */
+
+    /* ---- START ---- */
+    case FILTER_PRODUCTS:
+      console.log('filtering');
+      return { ...state };
+    /* ---- ------- END ------- ---- */
+
+    /* ---- START ---- */
     default:
       throw new Error(`No Matching "${action.type}" - action type`);
     /* ---- ------- END ------- ---- */
