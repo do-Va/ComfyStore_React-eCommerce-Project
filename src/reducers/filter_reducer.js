@@ -8,9 +8,11 @@ import {
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
 } from '../actions';
+import products_reducer from './products_reducer';
 
 const filter_reducer = (state, action) => {
   const { type, payload, name, value } = action;
+
   switch (type) {
     /* ---- START ---- */
     case LOAD_PRODUCTS:
@@ -77,8 +79,65 @@ const filter_reducer = (state, action) => {
 
     /* ---- START ---- */
     case FILTER_PRODUCTS:
-      console.log('filtering');
-      return { ...state };
+      const { all_products } = state;
+      const { text, category, company, color, price, shipping } = state.filters;
+
+      let temProducts = [...all_products];
+      // filtering
+
+      // text
+      if (text) {
+        temProducts = temProducts.filter(product => {
+          return product.name.toLowerCase().startsWith(text);
+        });
+      }
+
+      // category
+      if (category !== 'all') {
+        temProducts = temProducts.filter(
+          product => product.category === category
+        );
+      }
+
+      // company
+      if (company !== 'all') {
+        temProducts = temProducts.filter(
+          product => product.company === company
+        );
+      }
+
+      // colors
+      if (color !== 'all') {
+        temProducts = temProducts.filter(product => {
+          return product.colors.find(c => c === color);
+        });
+      }
+
+      // price
+      temProducts = temProducts.filter(product => product.price <= price);
+
+      //shipping
+      if (shipping) {
+        temProducts = temProducts.filter(product => product.shipping === true);
+      }
+
+      return { ...state, filtered_products: temProducts };
+    /* ---- ------- END ------- ---- */
+
+    /* ---- START ---- */
+    case CLEAR_FILTERS:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          text: '',
+          company: 'all',
+          category: 'all',
+          color: 'all',
+          price: state.filters.max_price,
+          shipping: false,
+        },
+      };
     /* ---- ------- END ------- ---- */
 
     /* ---- START ---- */
