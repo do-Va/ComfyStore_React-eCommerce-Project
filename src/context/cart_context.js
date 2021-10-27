@@ -36,15 +36,22 @@ export const CartProvider = ({ children }) => {
   };
 
   // remove item
-  const removeItem = id => {};
+  const removeItem = id => {
+    dispatch({ type: REMOVE_CART_ITEM, payload: id });
+  };
 
   // toggle amount
-  const toggleAmount = (id, value) => {};
+  const toggleAmount = (iid, value) => {
+    dispatch({ type: TOGGLE_CART_ITEM_AMOUNT, payload: { iid, value } });
+  };
 
   // clear cart
-  const clearCart = () => {};
+  const clearCart = () => {
+    dispatch({ type: CLEAR_CART });
+  };
 
   useEffect(() => {
+    dispatch({ type: COUNT_CART_TOTALS });
     localStorage.setItem('cart', JSON.stringify(state.cart));
   }, [state.cart]);
 
