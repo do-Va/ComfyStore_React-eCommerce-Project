@@ -70,7 +70,7 @@ const Filters = () => {
               name="company"
               value={company}
               onChange={updateFilters}
-              classname="company"
+              className="company"
             >
               {companies.map((c, index) => {
                 return (
