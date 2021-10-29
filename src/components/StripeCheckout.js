@@ -17,6 +17,37 @@ import { formatPrice } from '../utils/helpers';
 const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
+  const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
+  const { myUser } = useUserContext();
+  const history = useHistory();
+
+  // STRIPE STUFF
+  const [succeeded, setSucceeded] = useState(false);
+  const [error, setError] = useState(null);
+  const [processing, setProcessing] = useState('');
+  const [disabled, setDisabled] = useState(true);
+  const [clientSecret, setClientSecret] = useState('');
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const cardStyle = {
+    style: {
+      base: {
+        color: '#32325d',
+        fontFamily: 'Arial, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#32325d',
+        },
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a',
+      },
+    },
+  };
+
   return <h4>hello from Stripe Checkout </h4>;
 };
 
@@ -40,6 +71,7 @@ const Wrapper = styled.section`
     border-radius: 7px;
     padding: 40px;
   }
+
   input {
     border-radius: 6px;
     margin-bottom: 6px;
@@ -51,18 +83,22 @@ const Wrapper = styled.section`
     background: white;
     box-sizing: border-box;
   }
+
   .result-message {
     line-height: 22px;
     font-size: 16px;
   }
+
   .result-message a {
     color: rgb(89, 111, 214);
     font-weight: 600;
     text-decoration: none;
   }
+
   .hidden {
     display: none;
   }
+
   #card-error {
     color: rgb(105, 115, 134);
     font-size: 16px;
@@ -70,6 +106,7 @@ const Wrapper = styled.section`
     margin-top: 12px;
     text-align: center;
   }
+
   #card-element {
     border-radius: 4px 4px 0 0;
     padding: 12px;
@@ -79,9 +116,11 @@ const Wrapper = styled.section`
     background: white;
     box-sizing: border-box;
   }
+
   #payment-request-button {
     margin-bottom: 32px;
   }
+
   /* Buttons and links */
   button {
     background: #5469d4;
@@ -98,19 +137,23 @@ const Wrapper = styled.section`
     box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
     width: 100%;
   }
+
   button:hover {
     filter: contrast(115%);
   }
+
   button:disabled {
     opacity: 0.5;
     cursor: default;
   }
+
   /* spinner/processing state, errors */
   .spinner,
   .spinner:before,
   .spinner:after {
     border-radius: 50%;
   }
+
   .spinner {
     color: #ffffff;
     font-size: 22px;
@@ -124,11 +167,13 @@ const Wrapper = styled.section`
     -ms-transform: translateZ(0);
     transform: translateZ(0);
   }
+
   .spinner:before,
   .spinner:after {
     position: absolute;
     content: '';
   }
+
   .spinner:before {
     width: 10.4px;
     height: 20.4px;
@@ -141,6 +186,7 @@ const Wrapper = styled.section`
     -webkit-animation: loading 2s infinite ease 1.5s;
     animation: loading 2s infinite ease 1.5s;
   }
+
   .spinner:after {
     width: 10.4px;
     height: 10.2px;
@@ -153,6 +199,7 @@ const Wrapper = styled.section`
     -webkit-animation: loading 2s infinite ease;
     animation: loading 2s infinite ease;
   }
+
   @keyframes loading {
     0% {
       -webkit-transform: rotate(0deg);
@@ -163,6 +210,7 @@ const Wrapper = styled.section`
       transform: rotate(360deg);
     }
   }
+
   @media only screen and (max-width: 600px) {
     form {
       width: 80vw;
