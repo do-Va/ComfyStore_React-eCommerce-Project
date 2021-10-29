@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,7 @@ import logo from '../assets/logo.svg';
 
 const Nav = () => {
   const { openSidebar } = useProductsContext();
+  const { myUser } = useUserContext();
 
   return (
     <NavContainer>
@@ -33,6 +34,12 @@ const Nav = () => {
               </li>
             );
           })}
+
+          {myUser && (
+            <li>
+              <Link to="/checkout">checkout</Link>
+            </li>
+          )}
         </ul>
         <CartButtons />
       </div>
